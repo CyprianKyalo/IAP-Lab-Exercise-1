@@ -7,14 +7,44 @@
 	<h2>Change Password</h2>
 
 	<form action="" method="POST">
-		<label for="">New Password</label><br>
-		<input type="password" name=""><br>
+		<label for="">Old Password</label><br>
+		<input type="password" name="pwd" id="opwd"><br>
 
-		<br><label for="">Confirm New Password</label><br>
-		<input type="password" name=""><br>
+		<br><label for="">New Password</label><br>
+		<input type="password" name="" id="npwd"><br>
 
-		<br><button>Submit</button>
+		<br><label for="">Confirm Password</label><br>
+		<input type="password" name="" id="cnpwd"><br>
+
+		<br><input type="submit" name="Change" id="change" value="Change">
 		<button>Back</button>
 	</form>
+
+	<script type="text/javascript">
+		const Opwd = document.getElementById("opwd");
+		const Npwd = document.getElementById("npwd");
+		const Cnpwd = document.getElementById("cnpwd");
+		const Change = document.getElementById("change");
+
+		var pwd = localStorage.getItem("Password");
+
+		Change.onclick = function(){
+			const opwd = Opwd.value;
+			const npwd = Npwd.value;
+			const cnpwd = Cnpwd.value;
+
+			if(opwd == pwd){
+				if(cnpwd == npwd && npwd != ""){
+					alert("Password changed successfully");
+					localStorage.setItem("Password", npwd);
+				}else{
+					alert("The passwords do not match");
+				}
+			}else{
+				alert("Old password incorrect");
+			}
+		}
+
+	</script>
 </body>
 </html>
