@@ -1,111 +1,117 @@
-<?php
-//session_start();
-
-	/*if(isset($_POST['submit'])){
-		$FName = $_POST['fname'];
-		$LName = $_POST['lname'];
-		$Email = $_POST['e-mail'];
-		$Pass = $_POST['passwd'];
-		$City = $_POST['city'];
-
-		echo $FName.$LName;
-
-		//header("Location: Login.html");
-	}*/
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Sign Up</title>
-
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
 
-<h2>Sign Up</h2>
-	<form method="POST">
-		<label for="firstname">First Name</label><br>
-		<input type="text" name="fname"  id="firstname"><br>
+<div class="all">
+	<div class="one">
+		<h1>Welcome</h1>
+	</div>
 
-		<br><label for="lastname">Last Name</label><br>
-		<input type="text" name="lname" id="lastname"><br>
+	<div class="two">
+		<h2>Register</h2>
+		<hr>
+			<form method="POST" action="" enctype="multipart/form-data">
+				<!--<label for="firstname">First Name</label><br>-->
+				<input type="text" name="fname"  id="firstname" placeholder="First Name">
 
-		<br><label for="emmail">Email</label><br>
-		<input type="email" name="e-mail" id="emmail"><br>
+				<!--<label for="lastname">Last Name</label>-->
+				<input type="text" name="lname" id="lastname" placeholder="Last Name"><br>
 
-		<br><label for="pwd">Password</label><br>
-		<input type="password" name="passwd" id="pwd"><br>
+				<!--<br><label for="emmail">Email</label><br>-->
+				<input type="email" name="e-mail" id="emmail" placeholder="Email">
 
-		<br><label for="cpwd">Confirm Password</label><br>
-		<input type="password" name="cpasswd" id="cpwd"><br>
+				<!--<br><label for="pwd">Password</label><br>-->
 
-		<br><label for="COR">City of Residence</label><br>
-		<input type="text" name="city" id="COR"><br>
+				<input type="text" name="city" id="COR" placeholder="City Of Residence"><br>
 
-		<br><label for="Photo">Profile Photo</label><br>
-		<input type="file" name="photo" id="Photo"><br>
+				<input type="password" name="passwd" id="pwd" placeholder="Password">
 
-		<br><input type="submit" name="submit" value="Submit" id="sub" class="btn btn-dark">
+				<!--<br><label for="cpwd">Confirm Password</label><br>-->
+				<input type="password" name="cpasswd" id="cpwd" placeholder="Confirm Password"><br>
 
-		<input type="reset" name="" value="Back" class="btn btn-dark">
-	</form>
+				<!--<br><label for="COR">City of Residence</label><br>-->
+				
 
-	<!--<script type="text/javascript">
-		function storage(){
-			var myLink = document.getElementById("sub");
+				<label for="Photo" id="Pphoto">Profile Photo</label>
+				<input type="file" name="photo" id="Photo"><br>
 
-			myLink.onclick = function(){
-				var fname = document.getElementById("fname");
-				var lname = document.getElementById("lname");
-				var email = document.getElementById("e-mail");
-				var passwd = document.getElementById("passwd");
-				//var cpasswd = document.getElementById("cpasswd");
-				var city = document.getElementById("city");
+				<input type="submit" name="sub" value="Submit" id="sub" class="btn">
 
-				/*if(email.value.length == 0 && passwd.value.length == 0){
-					alert("Please check your email and password");
-				}else{*/
-					//document.getElementById("sub").submit();
-					localStorage.setItem('First Name', fname.value);
-					localStorage.setItem('Last Name', lname.value);
-					localStorage.setItem('Email', email.value);
-					localStorage.setItem('Password', passwd.value);
-					localStorage.setItem('City Of Residence', city.value);
+				<input type="reset" name="" value="Back" class="btn">
 
-					alert("Account successfully created");
-			}
-	//}
-}
-	</script>-->
+				<p>Already have an account?<a href="Login.php">Log In</a></p>
+			</form>
+		</div>
+</div>
+<?php
+session_start();
+
+	if(isset($_POST["sub"])){
+		$firstname = $_POST["fname"];
+
+		$file = $_FILES["photo"]["tmp_name"];
+		$dest = "Images/" . $_FILES["photo"]["name"];
+		move_uploaded_file($file, $dest);
+
+		$_SESSION["Picture"] = $dest;
+		echo $firstname;
+		echo "string";
+	}
+?>
 
 	<script type="text/javascript">
 		const Fname = document.getElementById("firstname");
 		const Lname = document.getElementById("lastname");
 		const Email = document.getElementById("emmail");
+		const cor = document.getElementById("COR");
 		const Pwd = document.getElementById("pwd");
 		const Cpwd = document.getElementById("cpwd");
-		const cor = document.getElementById("COR");
-		const pht = document.getElementById("Photo");
+		//const pht = document.getElementById("Photo");
+		//const bannerImage = document.getElementById("Photo");
 		const But = document.getElementById("sub");
+		
+
 
 		But.onclick = function(){
 			const Name = Fname.value;
 			const namE = Lname.value;
 			const email = Email.value;
+			const COR = cor.value;
 			const pwd = Pwd.value;
 			const cpwd = Cpwd.value;
-			const COR = cor.value;
-			const Photo = pht.value;
+			//const Photo = pht.value;
 
-			var obj = {
+			function getBase64Image(img) {
+			    var canvas = document.createElement("canvas");
+			    canvas.width = img.width;
+			    canvas.height = img.height;
+
+			    var ctx = canvas.getContext("2d");
+			    ctx.drawImage(img, 0, 0);
+
+			    var dataURL = canvas.toDataURL("image/png");
+
+			    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+			}
+
+			window.location.href = "Login.php";
+
+			
+			//const imgData = getBase64Image(bannerImage);
+			
+
+			/*var obj = {
 				"fname": Name,
 				"lname": namE,
 				"Email": email,
 				"Password": pwd,
 				"City": COR,
 				"Photo": Photo
-			}
+			}*/
 
 			//if(obj){
 				//localStorage.setItem("user", JSON.stringify(obj));
@@ -113,23 +119,13 @@
 				localStorage.setItem("First name", Name);
 				localStorage.setItem("Last Name", namE);
 				localStorage.setItem("Email", email);
-				localStorage.setItem("Password", pwd);
 				localStorage.setItem("City", COR);
+				localStorage.setItem("Password", pwd);
+				//localStorage.setItem("Photo", imgData);
 
 				//location.reload();	
 				//localStorage.setItem("name", Name);
 			//}
-
-			/*for(let i = 0; i < localStorage.length(); i++){
-				const key = localStorage.key(i);
-				//const value = localStorage.getItem("obj");
-				const value = localStorage.getItem("name");
-
-				ls.innerHTML += '${key}: ${value}<br />';
-
-			}*/
-			
-
 			//console.log("Retrieved Value: ", JSON.parse(val));
 
 			/*console.log(Name);

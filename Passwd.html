@@ -2,8 +2,10 @@
 <html>
 <head>
 	<title>Password</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
+<div class="pwd">
 	<h2>Change Password</h2>
 
 	<form action="" method="POST">
@@ -16,10 +18,10 @@
 		<br><label for="">Confirm Password</label><br>
 		<input type="password" name="" id="cnpwd"><br>
 
-		<br><input type="submit" name="Change" id="change" value="Change">
-		<button>Back</button>
+		<br><input type="submit" name="Change" id="change" value="Change" class="btn">
+		<a href="Profile.php"><input type="submit" name="back" value="Back" class="btn"></a>
 	</form>
-
+</div>
 	<script type="text/javascript">
 		const Opwd = document.getElementById("opwd");
 		const Npwd = document.getElementById("npwd");
@@ -37,6 +39,7 @@
 				if(cnpwd == npwd && npwd != ""){
 					alert("Password changed successfully");
 					localStorage.setItem("Password", npwd);
+					//window.location = "Profile.html";
 				}else{
 					alert("The passwords do not match");
 				}
