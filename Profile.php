@@ -1,3 +1,8 @@
+<?php
+include("db_connect.php");
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,10 +11,12 @@
 </head>
 <body>
 <?php 
-	session_start();
+	
+	$db->logout();
 ?>
 <div>
-	<a href="Login.php" style="margin-left: 78rem; font-size: 22px; text-decoration: none;">Log Out</a>
+	<a href="" style="margin-left: 78rem; font-size: 22px; text-decoration: none;">Log Out</a>
+	<input type="submit" name="logout" value="Log Out">
 </div>
 
 <div class="profile">
@@ -19,7 +26,10 @@
 
 	<div class="profiletwo">
 		<h2>Profile</h2>
-		<script id="sc">
+		<?php
+			echo $_SESSION['name'];
+		?>
+		<!--<script id="sc">
 			document.write(localStorage.getItem("First name") + " " + localStorage.getItem("Last Name"));
 			document.write("<br>");
 			document.write("<br>");
@@ -29,7 +39,7 @@
 			document.write(localStorage.getItem("City"));
 			document.write("<br>");
 
-		</script>
+		</script>-->
 		<br><a href="Passwd.html">Change Password</a>
 	</div>	
 </div>

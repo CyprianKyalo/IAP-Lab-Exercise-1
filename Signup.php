@@ -1,3 +1,9 @@
+<?php
+//include("db_connect.php");
+include_once './db_connect.php';
+include_once './userAccount.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +11,37 @@
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
+<?php
+//$link->register();
+$con = new DBConnector();
+$pdo = $con->connnectToDB();
+
+$account = new Account();
+
+if(isset($_POST['sub'])){
+	$fname = htmlspecialchars($_POST["fname"]);
+	$lname = htmlspecialchars($_POST['lname']);
+	$email = htmlspecialchars($_POST['e-mail']);
+	$city = htmlspecialchars($_POST['city']);
+	$pwd = htmlspecialchars($_POST['passwd']);
+	$cpwd = htmlspecialchars($_POST['cpasswd']);
+
+	if($pwd == $cpwd && $pwd != ""){
+		$account->setFname($fname);
+		$account->setLname($lname);
+		$account->setEmail($email);
+		$account->setCity($city);
+		$pwd = password_hash($pwd, PASSWORD_DEFAULT);
+		$account->setPwd($pwd);
+
+		$account->register($pdo);
+
+	}else{?>
+		<script>alert("Passwords do not match")</script>
+	<?php
+	}
+}
+?>
 
 <div class="all">
 	<div class="one">
@@ -16,22 +53,22 @@
 		<hr>
 			<form method="POST" action="" enctype="multipart/form-data">
 				<!--<label for="firstname">First Name</label><br>-->
-				<input type="text" name="fname"  id="firstname" placeholder="First Name">
+				<input type="text" name="fname"  id="firstname" placeholder="First Name" required>
 
 				<!--<label for="lastname">Last Name</label>-->
-				<input type="text" name="lname" id="lastname" placeholder="Last Name"><br>
+				<input type="text" name="lname" id="lastname" placeholder="Last Name" required><br>
 
 				<!--<br><label for="emmail">Email</label><br>-->
-				<input type="email" name="e-mail" id="emmail" placeholder="Email">
+				<input type="email" name="e-mail" id="emmail" placeholder="Email" required>
 
 				<!--<br><label for="pwd">Password</label><br>-->
 
-				<input type="text" name="city" id="COR" placeholder="City Of Residence"><br>
+				<input type="text" name="city" id="COR" placeholder="City Of Residence" required><br>
 
-				<input type="password" name="passwd" id="pwd" placeholder="Password">
+				<input type="password" name="passwd" id="pwd" placeholder="Password" required>
 
 				<!--<br><label for="cpwd">Confirm Password</label><br>-->
-				<input type="password" name="cpasswd" id="cpwd" placeholder="Confirm Password"><br>
+				<input type="password" name="cpasswd" id="cpwd" placeholder="Confirm Password" required><br>
 
 				<!--<br><label for="COR">City of Residence</label><br>-->
 				
@@ -63,7 +100,7 @@ session_start();
 	}
 ?>
 
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		const Fname = document.getElementById("firstname");
 		const Lname = document.getElementById("lastname");
 		const Email = document.getElementById("emmail");
@@ -136,6 +173,6 @@ session_start();
 			console.log(COR);
 			console.log(Photo);*/
 		}
-	</script>
+	</script>-->
 </body>
 </html>

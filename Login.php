@@ -1,3 +1,8 @@
+<?php
+include_once './db_connect.php';
+include_once './userAccount.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +11,22 @@
 	
 </head>
 <body>
+<?php
+$con = new DBConnector();
+$pdo = $con->connnectToDB();
+
+$account = new Account();
+
+if(isset($_POST['submit'])){
+	$email = htmlspecialchars($_POST['emmail']);
+	$pwd = htmlspecialchars($_POST['passwd']);
+
+	$account->setEmail($email);
+	$account->setPwd($pwd);
+	$account->login($pdo);
+}
+?>
+
 <div class="login">
 	<div class="logone">
 		<h1>Log In</h1>
@@ -15,10 +36,10 @@
 		<h2>Log In</h2>
 		<form action="" method="POST">
 			<!--<label for="">Email</label><br>-->
-			<input type="email" name="emmail" id="e-mail" placeholder="Email"><br>
+			<input type="email" name="emmail" id="e-mail" placeholder="Email" required><br>
 
 			<!--<br><label for="">Password</label><br>-->
-			<input type="password" name="passwd" id="pwd" placeholder="Password"><br>
+			<input type="password" name="passwd" id="pwd" placeholder="Password" required><br>
 
 			<br><input type="submit" name="submit" value="Log In" id="log" class="btn">
 			
@@ -29,7 +50,7 @@
 	</div>
 </div>
 
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		const Email = document.getElementById("e-mail");
 		const Pwd = document.getElementById("pwd");
 		const But = document.getElementById("log");
@@ -44,7 +65,7 @@
 
 				if(mail == entry && pass == pwd){
 					window.location.href = "Profile.php";
-					<?php header("location: Profile.php")?>
+					<?php //header("location: Profile.php")?>
 				}else{
 					alert('Incorrect Login');
 					
@@ -52,6 +73,6 @@
 
 		}
 
-	</script>
+	</script>-->
 </body>
 </html>
