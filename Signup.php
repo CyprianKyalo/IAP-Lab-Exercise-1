@@ -25,6 +25,7 @@ if(isset($_POST['sub'])){
 	$city = htmlspecialchars($_POST['city']);
 	$pwd = htmlspecialchars($_POST['passwd']);
 	$cpwd = htmlspecialchars($_POST['cpasswd']);
+	$image = $_FILES['photo'];
 
 	if($pwd == $cpwd && $pwd != ""){
 		$account->setFname($fname);
@@ -33,6 +34,7 @@ if(isset($_POST['sub'])){
 		$account->setCity($city);
 		$pwd = password_hash($pwd, PASSWORD_DEFAULT);
 		$account->setPwd($pwd);
+		$account->setImage($image);
 
 		$account->register($pdo);
 
@@ -85,9 +87,9 @@ if(isset($_POST['sub'])){
 		</div>
 </div>
 <?php
-session_start();
+//session_start();
 
-	if(isset($_POST["sub"])){
+	/*if(isset($_POST["sub"])){
 		$firstname = $_POST["fname"];
 
 		$file = $_FILES["photo"]["tmp_name"];
@@ -97,7 +99,7 @@ session_start();
 		$_SESSION["Picture"] = $dest;
 		echo $firstname;
 		echo "string";
-	}
+	}*/
 ?>
 
 	<!--<script type="text/javascript">

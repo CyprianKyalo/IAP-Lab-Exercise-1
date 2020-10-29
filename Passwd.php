@@ -47,7 +47,8 @@ if(isset($_POST['Change'])){
 		<input type="password" name="cnpwd" id="cnpwd"><br>
 
 		<br><input type="submit" name="Change" id="change" value="Change" class="btn">
-		<a href="Profile.php"><input type="submit" name="back" value="Back" class="btn"></a>
+		<!--<a href="Profile.php"><input type="submit" name="back" value="Back" class="btn"></a>-->
+		<button><a href="Profile.php">Back</a></button>
 	</form>
 </div>
 	<!--<script type="text/javascript">

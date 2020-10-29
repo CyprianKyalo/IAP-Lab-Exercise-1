@@ -5,7 +5,7 @@ interface User{
 	public function register($pdo);
 	public function login($pdo);
 	public function changePassword($pdo);
-	public function logout();
+	public function logout($pdo);
 }
 
 class Account implements User{
@@ -15,6 +15,7 @@ class Account implements User{
 	protected $city;
 	protected $pwd;
 	protected $npwd;
+	protected $image;
 
 	function __construct(){}
 
@@ -62,12 +63,28 @@ class Account implements User{
 		$this->npwd = $npwd;
 	}
 
+	function setImage($image){
+		$this->image = $image;
+	}
+
 	function register($pdo){
 		try{
-			$stmt = $pdo->prepare("INSERT INTO iap_app.users (fname, lname, email, password, city) VALUES (?, ?, ?, ?, ?)");
-			$stmt->execute([$this->fname, $this->lname, $this->email, $this->pwd, $this->city]);
-			$stmt = null;
-			return "New User Added";
+			$file_name = $this->image['name'];
+			$file_tmp_location = $this->image['tmp_name'];
+			$file_type = substr($file_name, strpos($file_name, '.'), strlen($file_name));
+			$file_path = "Images/";
+			$new_name = time().$file_type;
+
+			if(move_uploaded_file($file_tmp_location, $file_path.$new_name)){
+				$stmt = $pdo->prepare("INSERT INTO iap_app.users (fname, lname, email, password, city, image) VALUES (?, ?, ?, ?, ?, ?)");
+				$stmt->execute([$this->fname, $this->lname, $this->email, $this->pwd, $this->city, $new_name]);
+				$stmt = null;
+				//return "New User Added";
+				header("Location: Login.php");
+			}else{
+				echo "<script>alert('Image not uploaded');</script>";
+			}
+			
 		}catch(PDOException $e){
 			return $e->getMessage();
 		}
@@ -76,7 +93,7 @@ class Account implements User{
 	function login($pdo){
 		try{
 			$stmt = $pdo->prepare("SELECT * FROM iap_app.users WHERE email = ?");
-			$stmt->execute([$this->email]);
+			$stmt->execute([$this->getEmail()]);
 
 			$data = $stmt->fetch();
 
@@ -84,12 +101,14 @@ class Account implements User{
 				echo "<script>alert('Account does not exist')</script>";
 			}
 
-			if(password_verify($this->pwd, $data['password'])){
+			if(password_verify($this->getPwd(), $data['password'])){
 					echo "<script>alert('Login successful');</script>";
 					$_SESSION['Fname'] = $data['fname'];
 					$_SESSION['Lname'] = $data['lname'];
 					$_SESSION['Email'] = $data['email'];
-					header("Location: Passwd.php");
+					$_SESSION['Image'] = $data['image'];
+					$_SESSION['City']  = $data['city'];
+					header("Location: Profile.php");
 			}else{
 				echo "<script>alert('Incorrect credentials');</script>";;
 			}
@@ -112,6 +131,7 @@ class Account implements User{
 					$stm->execute([$this->npwd, $email]);
 					$stm = null;
 					echo "<script>alert('Password updated');</script>";
+					header("Location: Profile.php");
 				}else{
 					echo "<script>alert('Old password wrong');</script>";
 				}			
@@ -123,12 +143,14 @@ class Account implements User{
 		}
 	}
 
-	function logout(){
-		if(isset($_POST['logout'])){
+	function logout($pdo){
+		try{
+			//unset($_SESSION['name']);
 			session_destroy();
-			unset($_SESSION['name']);
-			header("Location: Login.php");
-			exit;
+			//header("Location: Login.php");
+			//exit;
+		}catch(PDOException $e){
+			return $e->getMessage();
 		}
 	}
 }
