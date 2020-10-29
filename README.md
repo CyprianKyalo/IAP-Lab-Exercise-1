@@ -7,5 +7,5 @@
 3. Download XAMPP on your machine to get both the Apache server and the MySQL database.
 4. Ensure both are running successfully.
 5. Clone this repository under Xampp/htdocs.
-6. Create a database(name of your choice) and import my database, iap_app.sql.
+6. Create a database(name of your choice) and import my database, @iap_app.sql.
 7. After that you can successfully launch the application by typing Localhost/App/Signup.php to navigate to the register page.
