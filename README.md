@@ -2,7 +2,7 @@
 
 ## How to Deploy
 
-To deploy this application, you need to pre-install a server on your local machine.
+### To deploy this application, you need to pre-install a server on your local machine.
 In the building of the application I have used the Apache server and the MySQL database.
 Download XAMPP on your machine to get both the Apache server and the MySQL database.
 Ensure both are running successfully.
