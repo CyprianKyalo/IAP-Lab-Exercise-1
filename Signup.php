@@ -89,7 +89,7 @@ if(isset($_POST['sub'])){
 <?php
 //session_start();
 
-	/*if(isset($_POST["sub"])){
+	/* if(isset($_POST["sub"])){
 		$firstname = $_POST["fname"];
 
 		$file = $_FILES["photo"]["tmp_name"];
