@@ -20,18 +20,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 $ord->fdname = $data->fdname;
 $ord->quantity = $data->quantity;
-//Create order
-/*if($ord->order()){
-	echo json_encode(
-		array('message' => 'Order Created')
-	);
 
-
-}else{
-	echo json_encode(
-		array('message' => 'Order Not Created')
-	);
-}*/
 
 $result = $ord->order();
 $num = $result->rowCount();

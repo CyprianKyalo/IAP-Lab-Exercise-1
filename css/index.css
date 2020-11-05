@@ -169,3 +169,45 @@
 .pwd button a{
 	text-decoration: none;
 }
+
+/*Styling the orders table*/
+.users{
+	margin-top: 3rem;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.users table{
+	width: 90%;
+	margin-left: 1rem;
+	margin-top: 1rem;
+	border-collapse: collapse;
+}
+
+.users table thead tr th{
+	margin: 2rem;
+	background-color: #167F92;
+	color: #fff;
+	padding: 7px;
+}
+
+.users table tbody td{
+	padding: 10px;
+	
+}
+
+.users table td{
+	margin-right: groove;
+}
+
+table tbody tr:nth-child(odd){
+	background-color: #e0e5d5;
+} 
+
+.users table tbody tr td a{
+	text-decoration: none;
+	padding: 7px 13px;
+	background-color: grey;
+	color: white;
+	border-radius: 5px;
+}
