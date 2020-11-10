@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Order and order status</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="order.js"></script>
+</head>
+<body>
+	<h3>Place order</h3>
+	<form method="POST" action="#" id="order-form">
+		Name of food: <input type="text" id="food-name" required><br><br>
+		Units: <input type="number" required id="no-of-units"><br><br>
+		<button id="order-submit-btn" type="submit">Make Order</button>
+		
+	</form>
+	<hr>
+
+	Check order status:<br><br>
+	<form method="POST" action="#" id="status-form">
+		Order ID: <input type="number" id="order-id"><br><br>
+		<button id="order-status">Check order status</button>
+	</form>	
+
+	<script type="text/javascript">
+		$('#order-submit-btn').click(function(event){
+		event.preventDefault();
+
+		var name_of_food = $('#food-name').val();
+		var no_of_units = $('#no-of-units').val();
+
+
+
+		alert("This feature is coming soon");
+		return;
+		//construct and send an HTTP POST request, url, body, header(custom), method
+		$.ajax({
+			url: "api.foodapi.com/order",
+			type: "post",
+			header:{
+				"api-key" : "DFBNuyertyulkhglmn"
+			},
+			data:{
+				"name_of_food": name_of_food,
+				"no_of_units": no_of_units
+			},
+			success: function(data){
+				//process the data
+			},
+			error: function(error){
+				alert("An error occurred");
+			}
+			});
+		});
+
+		$('#order-status').click(function(event){
+			event.preventDefault();
+
+			var order_id = $('#order-id').val();
+
+			alert("Coming soon as well");
+			return;
+
+			$.ajax({
+				url: "api.foodapi.com/getOrder",
+				type: "GET",
+				header: {
+					"api-key" : "fghjklkjhgfrTYJH"
+				},
+				data:{
+					"orderID": order_id 
+				},
+				success: function(data){
+
+				},
+				error: function(error){
+					alert("An eror occurred");
+				}
+			});
+		})
+	</script>
+</body>
+</html>
